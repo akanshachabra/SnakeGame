@@ -10,6 +10,7 @@ pygame.init()
 white=(255,255,255)
 red=(255,0,0)
 black=(0,0,0)
+blue=(0,0,255)
 
 #creating window
 screen_width=900
@@ -18,7 +19,11 @@ game_window=pygame.display.set_mode((screen_width,screen_height))
 
 #Background images
 bgimg=pygame.image.load("snake.jpg")
+bgimg1=pygame.image.load("maingame.jpg")
 bgimg=pygame.transform.scale(bgimg,(screen_width,screen_height)).convert_alpha()
+bgimg1=pygame.transform.scale(bgimg1,(screen_width,screen_height)).convert_alpha()
+#Font=pygame.font.Font("font/calibri.ttf",50)
+
 
 #Game Title
 pygame.display.set_caption("SNAKES With AKANSHA")
@@ -128,7 +133,7 @@ def gameloop():
             snake_y += velocity_y
             if abs(snake_x-food_x)<9 and abs(snake_y-food_y)<9:
                 score+=10
-                print("score:" , score*10)
+                print("Score:" , score*10)
                 food_x=random.randint(20,screen_width)
                 food_y=random.randint(20,screen_height)
                 snk_length+=3
@@ -138,7 +143,8 @@ def gameloop():
 
 
             game_window.fill(white) 
-            text_Screen("score:"+str(score)+" Hiscore: "+ str(hiscore),red ,5,5)
+            game_window.blit(bgimg1,(0,0))
+            text_Screen("Score: "+str(score) +" "+" Hiscore: "+ str(hiscore),blue ,5,5)
             pygame.draw.rect(game_window,red,[food_x,food_y,snake_size,snake_size])
             
             head=[]
@@ -163,7 +169,7 @@ def gameloop():
             
 
             #pygame.draw.rect(game_window,black,[snake_x,snake_y,snake_size,snake_size])  
-            plot_Snake(game_window,black,snk_list,snake_size)
+            plot_Snake(game_window,white,snk_list,snake_size)
         
         pygame.display.update()
         clock.tick(fps)
